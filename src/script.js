@@ -17,17 +17,30 @@ const scene = new THREE.Scene();
  */
 const textureLoader = new THREE.TextureLoader();
 
-const colorTexture = textureLoader.load(
-  "/textures/painted_concrete_diff_2k.jpg"
+const boxColorTexture = textureLoader.load(
+  "./painted_concrete_1k/painted_concrete_diff_1k.jpg"
 );
-colorTexture.colorSpace = THREE.SRGBColorSpace;
+
+const boxARMTexture = textureLoader.load(
+  "./painted_concrete_1k/painted_concrete_arm_1k.jpg"
+);
+const boxNormalTexture = textureLoader.load(
+  "./painted_concrete_1k/painted_concrete_nor_gl_1k.jpg"
+);
+
+boxColorTexture.colorSpace = THREE.SRGBColorSpace;
 
 /**
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-console.log(geometry.attributes);
-const material = new THREE.MeshBasicMaterial({ map: colorTexture });
+const material = new THREE.MeshBasicMaterial({
+  map: boxColorTexture,
+  normalMap: boxNormalTexture,
+  aoMap: boxARMTexture,
+  roughnessMap: boxARMTexture,
+  metalnessMap: boxARMTexture,
+});
 const mesh = new THREE.Mesh(geometry, material);
 
 scene.add(mesh);
